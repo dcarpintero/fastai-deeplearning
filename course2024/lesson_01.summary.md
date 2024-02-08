@@ -112,6 +112,10 @@ To make the training process go faster, we might start with a *pretrained model*
 
 When we train a model, a key concern is to ensure that our model *generalizes* — that is, that it learns general lessons from our data which also apply to new items it will encounter, so that it can make good predictions on those items. The risk is that if we train our model badly, instead of learning general lessons it effectively memorizes what it has already seen, and then it will make poor predictions about new images. Such a failure is called *overfitting*. In order to avoid this, we always divide our data into two parts, the *training set* and the *validation set*. We train the model by showing it only the training set and then we evaluate how well the model is doing by seeing how well it performs on items from the validation set. In this way, we check if the lessons the model learns from the training set are lessons that generalize to the validation set. In order for a person to assess how well the model is doing on the validation set overall, we define a *metric*. During the training process, when the model has seen every item in the training set, we call that an *epoch*.
 
-## Papers
+## Papers / References
 
 - In 2013 a PhD student, Matt Zeiler, and his supervisor, Rob Fergus, published the paper [Visualizing and Understanding Convolutional Networks](https://arxiv.org/pdf/1311.2901.pdf), which showed how to visualize the neural network weights learned in each layer of a model. They carefully analyzed the model that won the 2012 ImageNet competition, and used this analysis to greatly improve the model, such that they were able to go on to win the 2013 competition.
+- https://rise.readthedocs.io/en/latest/ : Convert Notebooks to Presentations
+- Blogging with Notebooks
+- https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2023/
+- https://timm.fast.ai/
