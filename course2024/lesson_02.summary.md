@@ -109,6 +109,9 @@ Here are some other features that are very useful in Jupyter notebooks:
 
 - [Jupyter Notebooks Extensions](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html) for Table of Contents, Collapsible Headings
 - [Gradio + HuggingFace Spaces: A Tutorial](https://www.tanishq.ai/blog/posts/2021-11-16-gradio-huggingface.html)
+- [fastai/fastsetup](https://github.com/fastai/fastsetup)
+- [mamba](https://github.com/mamba-org/mamba)
+- [nvdev](https://nbdev.fast.ai/)
 
 ## Books
 
