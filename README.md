@@ -55,3 +55,7 @@ and 91% accuracy at object level:
 <p align="center">
   <img src="./course2024/static/hg.02.png">
 </p>
+
+## 03. Ethics
+
+[[Lesson Summary]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_03.summary.md)
