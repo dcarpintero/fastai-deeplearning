@@ -59,3 +59,7 @@ and 91% accuracy at object level:
 ## 03. Ethics
 
 [[Lesson Summary]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_03.summary.md)
+
+## 04. Mnist Classifier
+
+[[Lesson Summary]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_04.summary.md)
