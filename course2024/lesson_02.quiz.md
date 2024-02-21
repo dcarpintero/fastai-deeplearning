@@ -67,7 +67,7 @@ https://huggingface.co/spaces/dcarpintero/interstellar
 
 > 10) What are DataLoaders?
 
-`DataLoaders` is a class that stores any DataLoader objects passed to it, making them accessible as train and valid datasets.
+`DataLoaders` is a class that stores any DataLoader objects passed to it, making them accessible as training and validation datasets.
 
 > 11) What four things do we need to tell fastai to create DataLoaders?
 
