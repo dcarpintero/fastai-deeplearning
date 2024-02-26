@@ -80,15 +80,19 @@ z.backward()
 print(x.grad)  # prints: tensor([0.6667, 0.6667, 0.6667])
 ```
 
-### Arrays and Tensors
+## Matrix Multiplication
 
-### Broadcasting
+In practice, both the inputs and the weights of a NN can be represented as a matrices, such that the computation of the outputs for all inputs can be performed in a single matrix multiplication.
 
-### Stochastic Gradient Descent (SGD)
+## Arrays and Tensors
 
-### Loss Function
+## Broadcasting
 
-### Mini Batches
+## Stochastic Gradient Descent (SGD)
+
+## Loss Function
+
+## Mini Batches
 
 ## Books
 
@@ -99,3 +103,4 @@ print(x.grad)  # prints: tensor([0.6667, 0.6667, 0.6667])
 - [How does a  neural net really work?](https://www.kaggle.com/code/jhoward/how-does-a-neural-net-really-work)
 - [Which image models are best?](https://www.kaggle.com/code/jhoward/which-image-models-are-best/)
 - [Calculus](https://www.youtube.com/playlist?list=PLybg94GvOJ9ELZEe9s2NXTKr41Yedbw7M)
+- [Matrix Multiplication](https://matrixmultiplication.xyz)
