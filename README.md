@@ -6,6 +6,7 @@ Learning notes and projects built for the Deep Learning course by [fast.ai](http
 
 [[Notebook]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.ipynb) 
 [[Lesson Summary]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.summary.md)
+[[Lesson Quiz]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.quiz.md)
 
 ## 02. Interstellar (Astronomical Classifier)
 
@@ -13,6 +14,8 @@ Learning notes and projects built for the Deep Learning course by [fast.ai](http
 [[Model]](https://huggingface.co/dcarpintero/fastai-interstellar-class)
 [[Notebook]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.ipynb) 
 [[Lesson Summary]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.summary.md)
+[[Lesson Quiz]](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.quiz.md)
+
 
 `[deep-learning]` `[data-augmentation]` `[ResNet-50]` `[transfer-learning]`
 
