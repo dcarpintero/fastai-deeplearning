@@ -4,18 +4,17 @@ Learning notes and projects built for the Deep Learning course by [fast.ai](http
 
 ## 01. Getting Started - Bird Classifier
 
-[Notebook](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.ipynb) |
-[Summary](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.summary.md) |
-[Quiz](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_01.quiz.md)
+[Notebook](./course2024/lesson_01.ipynb) |
+[Summary](./course2024/lesson_01.summary.md) |
+[Quiz](./course2024/lesson_01.quiz.md)
 
 ## 02. Deployment - Astronomy Classifier
 
-[Notebook](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.ipynb) |
-[Summary](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.summary.md) |
-[Quiz](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_02.quiz.md) |
+[Notebook](./course2024/lesson_02.astronomy.ipynb) |
+[Summary](./course2024/lesson_01.summary.md) |
+[Quiz](./course2024/lesson_02.quiz.md) |
 [Model](https://huggingface.co/dcarpintero/fastai-interstellar-class) |
 [HuggingFace-Space](https://huggingface.co/spaces/dcarpintero/interstellar) 
-
 
 
 `[deep-learning]` `[data-augmentation]` `[ResNet-50]` `[transfer-learning]`
@@ -44,14 +43,10 @@ and 91% accuracy at object level:
   <img src="./course2024/static/hg.02.png">
 </p>
 
-## 03. Ethics
-
-[Summary](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_03.summary.md)
-
-## 04. Neural Net Foundations - MNIST Classifier
+## 03. Neural Net Foundations - MNIST Classifier
 
 [Notebook](https://www.kaggle.com/code/jhoward/how-does-a-neural-net-really-work) |
 [Summary](https://github.com/dcarpintero/fastai-deeplearning/blob/main/course2024/lesson_04.summary.md) |
-[Quiz](lesson_04.quiz.md) |
+[Quiz](lesson_03.quiz.md) |
 [Model]()
 
