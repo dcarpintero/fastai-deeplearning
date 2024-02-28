@@ -206,7 +206,7 @@ F.mse_loss(a, b)
 
 ## References
 
-- [How does a  neural net really work?](https://www.kaggle.com/code/jhoward/how-does-a-neural-net-really-work)
+- [How does a  neural net really work? - Notebook](https://www.kaggle.com/code/jhoward/how-does-a-neural-net-really-work)
 - [The best vision models for fine tuning](https://www.kaggle.com/code/jhoward/the-best-vision-models-for-fine-tuning)
 - [Which image models are best?](https://www.kaggle.com/code/jhoward/which-image-models-are-best/)
 - [Calculus](https://www.youtube.com/playlist?list=PLybg94GvOJ9ELZEe9s2NXTKr41Yedbw7M)
