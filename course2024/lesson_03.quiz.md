@@ -2,17 +2,45 @@
 
 ## Neural Net Foundations
 
-1. How is a grayscale image represented on a computer? How about a color image?
-1. How are the files and folders in the `MNIST_SAMPLE` dataset structured? Why?
-1. Explain how the "pixel similarity" approach to classifying digits works.
-1. What is a list comprehension? Create one now that selects odd numbers from a list and doubles them.
-1. What is a "rank-3 tensor"?
-1. What is the difference between tensor rank and shape? How do you get the rank from the shape?
-1. What are RMSE and L1 norm?
-1. How can you apply a calculation on thousands of numbers at once, many thousands of times faster than a Python loop?
-1. Create a 3×3 tensor or array containing the numbers from 1 to 9. Double it. Select the bottom-right four numbers.
-1. What is broadcasting?
-1. Are metrics generally calculated using the training set, or the validation set? Why?
+> 1. How is a grayscale image represented on a computer? How about a color image?
+> 1. How are the files and folders in the `MNIST_SAMPLE` dataset structured? Why?
+> 1. Explain how the "pixel similarity" approach to classifying digits works.
+> 1. What is a list comprehension? Create one now that selects odd numbers from a list and doubles them.
+> 1. What is a "rank-3 tensor"?
+> 1. What is the difference between tensor rank and shape? How do you get the rank from the shape?
+
+> 7. What are RMSE and L1 norm?
+
+To have a sense of whether our model fits into data, we need a numeric measure to infer the difference between our prediction and the actual value. 
+
+The most common measures are:
+- **Mean Absolute Difference (MAE)**, L1 norm, which adds the absolute values of the difference.
+- **Root Mean Square Error (RMSE)**, L2 norm, which takes the mean of the square (makes everything positive) and then takes the square root (undoes squaring).
+
+> 8. How can you apply a calculation on thousands of numbers at once, many thousands of times faster than a Python loop?
+
+Using PyTorch tensors which are optimized to run on GPUs. Numpy is also an option since both run on a compiled object written (and optimized) in another language—specifically such as C++ (or Rust).
+
+See also [JAX](https://github.com/google/jax).
+
+> 9. Create a 3×3 tensor or array containing the numbers from 1 to 9. Double it. Select the bottom-right four numbers.
+
+```python
+t = torch.Tensor(range(1,10)).view(3, 3)
+t = t*2
+t[1:,1:]
+```
+
+> 10. What is broadcasting?
+
+Broadcasting is a PyTorch and Numpy mechanism that enables to perform operations between arrays/tensors of different shapes. In practice, the smaller tensor is "broadcast" across the larger tensor so that they have compatible shapes for element-wise operations.
+
+Note that this is purely an abstract concept, PyTorch doesn't actually allocate the broadcasted tensor in memory.
+
+> 11. Are metrics generally calculated using the training set, or the validation set? Why?
+
+Metrics are normally calculated using the validation set, which contains data that is isolated from the training process.
+
 1. What is SGD?
 1. Why does SGD use mini-batches?
 1. What are the seven steps in SGD for machine learning?
