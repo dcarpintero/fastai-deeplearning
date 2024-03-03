@@ -8,13 +8,29 @@ Images are represented by arrays with pixel values representing the content of t
 
 > 2. How are the files and folders in the `MNIST_SAMPLE` dataset structured? Why?
 
+There are two subfolders, train and valid, the former contains the data for model training, the latter contains the data for validating model performance after each training step. Evaluating the model on the validation set serves two purposes: a) to report a human-interpretable metric such as accuracy (in contrast to the often abstract loss functions used for training), b) to facilitate the detection of overfitting by evaluating the model on a dataset it hasn’t been trained on (in short, an overfit model performs increasingly well on the training set but decreasingly so on the validation set). 
+
 > 3. Explain how the "pixel similarity" approach to classifying digits works.
+
+In the “pixel similarity” approach, we generate an archetype for each class we want to identify. In our case, we want to distinguish images of 3’s from images of 7’s. We define the archetypical 3 as the pixel-wise mean value of all 3’s in the training set. Analoguously for the 7’s. You can visualize the two archetypes and see that they are in fact blurred versions of the numbers they represent.
+In order to tell if a previously unseen image is a 3 or a 7, we calculate its distance to the two archetypes (here: mean pixel-wise absolute difference). We say the new image is a 3 if its distance to the archetypical 3 is lower than two the archetypical 7.
 
 > 4. What is a list comprehension? Create one now that selects odd numbers from a list and doubles them.
 
+It is a concise Pythonic way to create lists.
+
+```python
+[x*2 for _ in range(10) if x%2==1]
+```
+
 > 5. What is a "rank-3 tensor"?
 
+A tensor with 3 dimensions. An easy way to identify the rank is the number of indices you would need to reference a number within a tensor. A scalar can be represented as a tensor of rank 0 (no index), a vector can be represented as a tensor of rank 1 (one index, e.g., v[i]), a matrix can be represented as a tensor of rank 2 (two indices, e.g., a[i,j]), and a tensor of rank 3 is a cuboid or a “stack of matrices” (three indices, e.g., b[i,j,k]). In particular, the rank of a tensor is independent of its shape or dimensionality, e.g., a tensor of shape 2x2x2 and a tensor of shape 3x5x7 both have rank 3.
+Note that the term “rank” has different meanings in the context of tensors and matrices (where it refers to the number of linearly independent column vectors).
+
 > 6. What is the difference between tensor rank and shape? How do you get the rank from the shape?
+
+The tensor `rank` is the number of dimensions, whereas the shape is the size of each dimension.
 
 > 7. What are RMSE and L1 norm?
 
@@ -109,7 +125,17 @@ weights -= grad * lr
 
 > 24. What does the `DataLoader` class do?
 
+The DataLoader class can take any Python collection and turn it into an iterator over many batches.
+
 > 25. Write pseudocode showing the basic steps taken in each epoch for SGD.
+
+```python
+for x,y in dl:
+    preds = model(x)
+    loss = criterion(preds, y)
+    loss.backward()
+    params -= params.grad * lr
+```
 
 > 26. Create a function that, if passed two arguments `[1,2,3,4]` and `'abcd'`, returns `[(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd')]`. What is special about that output data structure?
 
@@ -122,9 +148,13 @@ This data structure is useful for machine learning models when you need lists of
 
 > 27. What does `view` do in PyTorch?
 
-
+Modifies the shape of a tensor without changing its content.
 
 > 28. What are the "bias" parameters in a neural network? Why do we need them?
+
+The "bias" parameters in a neural network are additional parameters added to each neuron in a layer that are used to shift the output of the neuron's activation function along the y-axis. They work in conjunction with the weights to determine the strength of the neuron's output.
+
+Without bias, a neuron's output would always be zero when the input is zero, regardless of the weights. This limits the types of functions that the network can represent. By adding a bias term, we allow the neuron to output non-zero values when the input is zero, which increases the range of functions that the network can model. In other words, bias parameters allow neural networks to represent patterns that do not necessarily pass through the origin of the coordinate system, **making them more flexible and capable of learning complex patterns**.
 
 > 29. What does the `@` operator do in Python?
 
@@ -132,15 +162,36 @@ Matrix multiplication.
 
 > 30. What does the `backward` method do?
 
-Updates the weights of the model parameters.
+This method returns the current gradients.
 
 > 31. Why do we have to zero the gradients?
 
+PyTorch will add the gradients of a variable to any previously stored gradients. If the training loop function is called multiple times, without zeroing the gradients, the gradient of current loss would be added to the previously stored gradient value.
+
 > 32. What information do we have to pass to `Learner`?
+
+We need to pass in the DataLoaders, the model, the optimization function, the loss function, and optionally any metrics to print.
 
 > 33. Show Python or pseudocode for the basic steps of a training loop.
 
+```python
+def train_epoch(model, lr, params):
+    for xa, xb in df:
+        preds = model(xa)
+        loss = criterion(preds, xb)
+        loss.backward()
+        
+        for p in params:
+            p.data -= p.grad * lr
+            p.grad.zero_()
+
+for i in range(20):
+    train_epoc(model, lr, params)
+```
+
 > 34. What is "ReLU"? Draw a plot of it for values from `-2` to `+2`.
+
+ReLU stands for rectified linear unit, it is an activation function that converts negative values to 0, while maintaining possitive values.
 
 > 35. What is an "activation function"?
 
