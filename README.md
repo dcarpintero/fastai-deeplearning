@@ -14,7 +14,7 @@ Learning notes and projects built for the Deep Learning course by [fast.ai](http
 [Summary](./course2024/lesson_01.summary.md) |
 [Quiz](./course2024/lesson_02.quiz.md) |
 [Model](https://huggingface.co/dcarpintero/fastai-interstellar-class) |
-[HuggingFace-Space](https://huggingface.co/spaces/dcarpintero/interstellar) 
+[Try in HuggingFace Spaces](https://huggingface.co/spaces/dcarpintero/interstellar) 
 
 
 `[deep-learning]` `[data-augmentation]` `[ResNet-50]` `[transfer-learning]`
@@ -43,9 +43,18 @@ and 91% accuracy at object level:
   <img src="./course2024/static/hg.02.png">
 </p>
 
-## 03. Neural Net Foundations - MNIST Classifier
+## 03. Neural Net Foundations - Digit Classifier w/ Multi-Layer Perceptron
 
 [Summary](./course2024/lesson_03.summary.md) |
 [Quiz](./course2024/lesson_03.quiz.md) |
-[Model](./course2024/lesson_03.mnist.ipynb)
+[Digit Classifier w/ Multi-Layer Perceptron](./course2024/lesson_03.full.mnist.mlp.ipynb)
 
+`[deep-learning]` `[perceptron]` `[backpropagation]` `[gradient-descend]` `[linear-layer]` `[relu]` `[optimizer]` `[mnist]` `[multi-class]` `[universal-approximation-theorem]`
+
+[Annotated Multi-Layer Perceptron](./course2024/lesson_03.full.mnist.mlp.md) trained on the MNIST dataset to classify handwritten digits. It  implements from scratch the following modules: **linear layer**, **relu-activation-function**, **sequential-layer**, **flatten-layer**, **basic optimizer**, and **learner**.
+
+We define a hidden layer of size `128, 64` wherein the input tensors (28 x 28) are flattened in the height, and width dimensions into 1 dimension (784). The model achieves 90% accuracy with `10 training epochs` and a `batch size = 128`.
+
+<p align="center">
+  <img src="./course2024/static/mnist.png">
+</p>

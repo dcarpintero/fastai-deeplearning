@@ -166,7 +166,7 @@ w -= gradient(w) * lr
 
 A mini-batch is a subset of the entire training dataset. Instead of passing the whole dataset through the network or a single example at a time, you pass a mini-batch of 'n' samples where 'n' is more than 1 but less than the total number of samples in the training set.
 
-The use of mini-batches has several advantages: (i) **computational efficiency** (only perform well if they have lots of work to do at a time), (ii) **better generalization** (rather than simply enumerating our dataset in order for every epoch, we randomly shuffle it on every epoch to introduce variance), and (iii) **memory usage** (it is a practical choice to not overload GPU's memory). 
+The use of mini-batches has several advantages: (i) **computational efficiency** (GPUs only perform well if they have lots of work to do at a time), (ii) **better generalization** (rather than simply enumerating our dataset in order for every epoch, we randomly shuffle it on every epoch to introduce variance), and (iii) **memory usage** (it is a practical choice to not overload GPU's memory). 
 
 The size of the mini-batches is a hyperparameter of the model and can be tuned for best performance. A larger batch size means that you will get a more accurate and stable estimate of your dataset's gradients from the loss function, but it will take longer, and you will process fewer mini-batches per epoch. Common choices for the mini-batch size include 32, 64, and 128, but the optimal size can depend on the specific problem and the hardware used for training.
 
