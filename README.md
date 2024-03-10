@@ -47,14 +47,15 @@ and 91% accuracy at object level:
 
 [Summary](./course2024/lesson_03.summary.md) |
 [Quiz](./course2024/lesson_03.quiz.md) |
-[Digit Classifier w/ Multi-Layer Perceptron](./course2024/lesson_03.full.mnist.mlp.ipynb)
+[Digit Classifier w/ Multi-Layer Perceptron](./course2024/lesson_03.full.mnist.mlp.ipynb) |
+[Try in HuggingFace Spaces](https://huggingface.co/spaces/dcarpintero/mlp-digit-classifier) 
 
 `[deep-learning]` `[perceptron]` `[backpropagation]` `[gradient-descend]` `[linear-layer]` `[relu]` `[optimizer]` `[mnist]` `[multi-class]` `[universal-approximation-theorem]`
 
 [Annotated Multi-Layer Perceptron](./course2024/lesson_03.full.mnist.mlp.md) trained on the MNIST dataset to classify handwritten digits. It  implements from scratch the following modules: **linear layer**, **relu-activation-function**, **sequential-layer**, **flatten-layer**, **basic optimizer**, and **learner**.
 
-We define a hidden layer of size `128, 64` wherein the input tensors (28 x 28) are flattened in the height, and width dimensions into 1 dimension (784). The model achieves 90% accuracy with `10 training epochs` and a `batch size = 128`.
+We define a hidden layer of size `256, 64` wherein the input tensors (28 x 28) are flattened in the height, and width dimensions. The model achieves 95.6% accuracy with `15 training epochs` and `batch size = 64`.
 
 <p align="center">
-  <img src="./course2024/static/mnist.png">
+  <img src="./course2024/static/mnist.hg.png">
 </p>
