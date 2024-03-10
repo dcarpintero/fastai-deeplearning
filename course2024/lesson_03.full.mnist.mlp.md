@@ -9,7 +9,7 @@ device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 print('GPU State:', device)
 ```
 
-    GPU State: cpu
+    GPU State: cuda:0
     
 
 # Annotated Multi-Layer Perceptron (MLP) for Digit Classification (0-9)
@@ -75,8 +75,7 @@ class Linear(nn.Module):
         self.in_features = in_features
         self.out_features = out_features
     
-        self.weight = nn.Parameter((torch.randn((self.in_features,
-                                                 self.out_features), device=device) * 0.1).requires_grad_())
+        self.weight = nn.Parameter((torch.randn((self.in_features, self.out_features), device=device) * 0.1).requires_grad_())
         self.bias = nn.Parameter((torch.randn(self.out_features, device=device) * 0.1).requires_grad_())
         """
         step_1: initialize_parameters (weights & biases)
@@ -145,18 +144,23 @@ class DigitClassifier(nn.Module):
         super(DigitClassifier, self).__init__()
         self.main = Sequential(
             Flatten(),
-            Linear(in_features=784, out_features=128),
+            Linear(in_features=784, out_features=256),
             ReLU(),
-            Linear(in_features=128, out_features=64),
+            Linear(in_features=256, out_features=64),
             ReLU(),
             Linear(in_features=64, out_features=10),
         )
+    """
+    The output of the model will be logits (unnormalized +- scores).
+    Our loss function (nn.CrossEntropyLoss()) expects logits as input, 
+    and then it applies the softmax function internally.
+    """
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.main(x)
-        """
-        step_2: calculate_predictions
-        """
+    """
+    step_2: calculate_predictions
+    """
 
 model = DigitClassifier().to(device)
 model
@@ -168,9 +172,9 @@ model
     DigitClassifier(
       (main): Sequential(
           (0): Flatten()
-          (1): in_features=784, out_features=128, bias=True
+          (1): in_features=784, out_features=256, bias=True
           (2): ReLU()
-          (3): in_features=128, out_features=64, bias=True
+          (3): in_features=256, out_features=64, bias=True
           (4): ReLU()
           (5): in_features=64, out_features=10, bias=True
       )
@@ -189,14 +193,14 @@ list(model.parameters())[0]
 
 
     Parameter containing:
-    tensor([[-0.0261, -0.0317,  0.0396,  ...,  0.0632, -0.1842,  0.0695],
-            [ 0.0517, -0.0235,  0.1367,  ...,  0.0189,  0.0350, -0.1229],
-            [ 0.1071,  0.1313, -0.0074,  ..., -0.1493,  0.2083, -0.0038],
+    tensor([[ 0.0406,  0.0237, -0.0663,  ...,  0.0474,  0.1331,  0.0825],
+            [-0.0139,  0.0206, -0.1741,  ..., -0.1237,  0.0270,  0.0887],
+            [ 0.0809,  0.0082,  0.1405,  ...,  0.0606, -0.0793,  0.1544],
             ...,
-            [-0.0147,  0.0288,  0.0339,  ..., -0.0953, -0.1541,  0.2259],
-            [-0.0533, -0.0137,  0.0331,  ...,  0.0015,  0.0739,  0.1074],
-            [-0.1288,  0.0720,  0.1954,  ..., -0.1109, -0.0285,  0.0522]],
-           requires_grad=True)
+            [ 0.2082,  0.0909,  0.0970,  ...,  0.0946, -0.0135,  0.1249],
+            [ 0.0234,  0.0828,  0.0385,  ...,  0.0473, -0.1452,  0.0117],
+            [-0.0792, -0.0416, -0.1445,  ..., -0.0327, -0.1133,  0.2063]],
+           device='cuda:0', requires_grad=True)
 
 
 
@@ -230,13 +234,15 @@ class BasicOptim:
 
 ### 1.7 Init Config
 
+Feel free to experiment with different learning rates and batch sizes (32, 64, 128). Keep in mind that if the batch size is too large, it might exceed the GPU's memory capacity, causing an out-of-memory error.
+
 
 ```python
 config = LearnerConfig(model=model,
                        criterion=nn.CrossEntropyLoss(),
-                       epochs=10, 
-                       batch_size=128,
-                       lr=0.005,
+                       epochs=15, 
+                       batch_size=64,
+                       lr=0.01,
                        device=device)
 ```
 
@@ -279,7 +285,7 @@ train_data.data.size(), test_data.data.size()
 ```python
 import matplotlib.pyplot as plt 
 
-figure = plt.figure(figsize=(5, 4))
+figure = plt.figure(figsize=(8, 6))
 cols, rows = 5, 5
 for i in range(1, cols * rows + 1):
     sample_idx = torch.randint(len(train_data), size=(1,)).item()
@@ -292,7 +298,7 @@ plt.show()
 
 
     
-![png](lesson_03.full.mnist.mlp_files/lesson_03.full.mnist.mlp_34_0.png)
+![png](lesson_03.full.mnist.mlp_files/lesson_03.full.mnist.mlp_35_0.png)
     
 
 
@@ -358,7 +364,7 @@ class Learner:
         return sum(accs) / len(accs)
         
     def fit(self):
-        print('epoch\ttrain_loss\ttest_accuracy')
+        print('epoch\ttraining_loss\ttest_accuracy')
         for epoch in range(self.epochs):
             epoch_loss = self.train_epoch(epoch)
             epoch_accuracy = self.validate_epoch()
@@ -375,9 +381,13 @@ class Learner:
             output = self.model(x.to(self.device))
             probabilities = torch.nn.functional.softmax(output, dim=1)
             return probabilities
+            """
+            The softmax function converts a vector of raw model outputs (logits)
+            into a probability distribution, wherein the outputs sum 1.
+            """
             
     def export(self, path):
-        torch.save(self.model.state_dict(), path)
+        torch.save(self.model, path)
 ```
 
 
@@ -390,17 +400,22 @@ learner = Learner(config, loaders)
 learner.fit()
 ```
 
-    epoch	train_loss	test_accuracy
-    1	1.905170	0.670392
-    2	1.051449	0.804292
-    3	0.679126	0.845926
-    4	0.540277	0.862441
-    5	0.469416	0.879648
-    6	0.425877	0.889537
-    7	0.395782	0.896657
-    8	0.373564	0.900415
-    9	0.356022	0.904074
-    10	0.341619	0.906052
+    epoch	training_loss	test_accuracy
+    1	0.868424	0.882265
+    2	0.378885	0.906350
+    3	0.314238	0.920979
+    4	0.278153	0.927747
+    5	0.252540	0.934116
+    6	0.231573	0.935609
+    7	0.214307	0.938296
+    8	0.199989	0.944964
+    9	0.187188	0.946258
+    10	0.175877	0.947353
+    11	0.166181	0.949244
+    12	0.157427	0.952528
+    13	0.149232	0.953623
+    14	0.141878	0.953324
+    15	0.135821	0.956210
     
 
 ## 4. Inference
@@ -412,14 +427,14 @@ images, _ = next(iter(loaders['test']))
 i = torch.randint(len(images), size=(1,)).item()
 img = images[i]
 
-plt.figure(figsize=(2, 2))
+plt.figure(figsize=(1, 1))
 plt.imshow(img.squeeze(), cmap='gray')
 plt.show()
 ```
 
 
     
-![png](lesson_03.full.mnist.mlp_files/lesson_03.full.mnist.mlp_41_0.png)
+![png](lesson_03.full.mnist.mlp_files/lesson_03.full.mnist.mlp_42_0.png)
     
 
 
@@ -431,7 +446,7 @@ learner.predict(img)
 
 
 
-    tensor([1])
+    tensor([5], device='cuda:0')
 
 
 
@@ -443,14 +458,77 @@ learner.predict_probs(img)
 
 
 
-    tensor([[7.3276e-06, 9.7975e-01, 3.4301e-03, 5.7157e-03, 7.6313e-05, 2.4152e-04,
-             7.4793e-05, 2.4783e-03, 7.3507e-03, 8.7068e-04]])
+    tensor([[1.4672e-02, 5.1173e-05, 4.2124e-04, 2.4462e-03, 2.7152e-03, 9.7393e-01,
+             5.4004e-04, 6.4227e-04, 1.3170e-03, 3.2600e-03]], device='cuda:0')
 
 
+
+## 5. Export Model
 
 
 ```python
 learner.export('digit_classifier.pt')
 ```
+
+
+```python
+cls = torch.load('digit_classifier.pt')
+```
+
+
+```python
+cls
+```
+
+
+
+
+    DigitClassifier(
+      (main): Sequential(
+          (0): Flatten()
+          (1): in_features=784, out_features=256, bias=True
+          (2): ReLU()
+          (3): in_features=256, out_features=64, bias=True
+          (4): ReLU()
+          (5): in_features=64, out_features=10, bias=True
+      )
+    )
+
+
+
+
+```python
+output = cls(img.to(device))
+```
+
+
+```python
+import torch.nn.functional as F
+
+labels = range(10)
+probs = torch.nn.functional.softmax(output, dim=1)
+probs = probs.cpu().detach().numpy().flatten() * 100
+```
+
+
+```python
+dict(zip(labels, probs))
+```
+
+
+
+
+    {0: 1.4672366,
+     1: 0.005117348,
+     2: 0.042124014,
+     3: 0.24461967,
+     4: 0.2715179,
+     5: 97.39346,
+     6: 0.05400388,
+     7: 0.064227015,
+     8: 0.13169584,
+     9: 0.32599893}
+
+
 
 ----
